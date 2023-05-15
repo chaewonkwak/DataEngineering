@@ -51,8 +51,8 @@ public class UBERStudent20200941
 			
 			for (Text val : values) {
 				String[] tokens = val.toString().split(",");
-				trips += Integer.parseInt(tokens[0]);
-				vehicles += Integer.parseInt(tokens[1]);
+				trips += Integer.parseInt(tokens[1]);
+				vehicles += Integer.parseInt(tokens[0]);
 			}
 			result.set(trips + "," + vehicles);
 			context.write(key, result);
