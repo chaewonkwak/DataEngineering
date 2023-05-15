@@ -25,13 +25,13 @@ public class UBERStudent20200941
 				Calendar cal = Calendar.getInstance();
 				cal.set(Integer.parseInt(date[2]), Integer.parseInt(date[0]), Integer.parseInt(date[1]));
 				int dayOfWeekNum = cal.get(Calendar.DAY_OF_WEEK);
-				if (dayOfWeekNum == 1) word.set(tokens[0] + ",MON");
-				if (dayOfWeekNum == 2) word.set(tokens[0] + ",TUE");
-				if (dayOfWeekNum == 3) word.set(tokens[0] + ",WED");
-				if (dayOfWeekNum == 4) word.set(tokens[0] + ",THR");
-				if (dayOfWeekNum == 5) word.set(tokens[0] + ",FRI");
-				if (dayOfWeekNum == 6) word.set(tokens[0] + ",SAT");
-				if (dayOfWeekNum == 7) word.set(tokens[0] + ",SUN");
+				if (dayOfWeekNum == 1) word.set(tokens[0] + ",SUN");
+				if (dayOfWeekNum == 2) word.set(tokens[0] + ",MON");
+				if (dayOfWeekNum == 3) word.set(tokens[0] + ",TUE");
+				if (dayOfWeekNum == 4) word.set(tokens[0] + ",WED");
+				if (dayOfWeekNum == 5) word.set(tokens[0] + ",THR");
+				if (dayOfWeekNum == 6) word.set(tokens[0] + ",FRI");
+				if (dayOfWeekNum == 7) word.set(tokens[0] + ",SAT");
 				
 				num.set(tokens[2] + "," + tokens[3]);
 				
