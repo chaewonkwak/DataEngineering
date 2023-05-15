@@ -20,17 +20,18 @@ public class IMDBStudent20200941
 
 		public void map(Object key, Text value, Context context) throws IOException, InterruptedException 
 		{
-			StringTokenizer itr = new StringTokenizer(value.toString(), "::");
-			while (itr.hasMoreTokens()) 
-			{
-				itr.nextToken(); itr.nextToken();
-				word.set(itr.nextToken());
-				context.write(word, one);
+			String[] tokens = value.toString().split("::");
+			if (tokens.length == 3) {
+				String[] genres = tokens[2].split("\\|");
+				for (String val : genres) {
+					word.set(val);
+					context.write(word, one);
+				}
 			}
 		}
 	}
 
-	public static class WordCountReducer extends Reducer<Text,IntWritable,Text,IntWritable> 
+	public static class IMDBReducer extends Reducer<Text,IntWritable,Text,IntWritable> 
 	{
 		private IntWritable result = new IntWritable();
 
@@ -52,14 +53,14 @@ public class IMDBStudent20200941
 		String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
 		if (otherArgs.length != 2) 
 		{
-			System.err.println("Usage: wordcount <in> <out>");
+			System.err.println("Usage: IMDBStudent20200941 <in> <out>");
 			System.exit(2);
 		}
-		Job job = new Job(conf, "word count");
-		job.setJarByClass(WordCount.class);
-		job.setMapperClass(WordCountMapper.class);
-		job.setCombinerClass(WordCountReducer.class);
-		job.setReducerClass(WordCountReducer.class);
+		Job job = new Job(conf, "IMDBStudent20200941");
+		job.setJarByClass(IMDBStudent20200941.class);
+		job.setMapperClass(IMDBMapper.class);
+		job.setCombinerClass(IMDBReducer.class);
+		job.setReducerClass(IMDBReducer.class);
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(IntWritable.class);
 		FileInputFormat.addInputPath(job, new Path(otherArgs[0]));
