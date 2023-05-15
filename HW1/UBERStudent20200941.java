@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.*;
+import java.time.*;
 import org.apache.hadoop.conf.*;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
@@ -22,16 +23,18 @@ public class UBERStudent20200941
 			String[] tokens = value.toString().split(",");
 			if (tokens.length == 4) {
 				String[] date = tokens[1].split("/");
-				Calendar cal = Calendar.getInstance();
-				cal.set(Integer.parseInt(date[2]), Integer.parseInt(date[0]), Integer.parseInt(date[1]));
-				int dayOfWeekNum = cal.get(Calendar.DAY_OF_WEEK);
-				if (dayOfWeekNum == 1) word.set(tokens[0] + ",SUN");
-				if (dayOfWeekNum == 2) word.set(tokens[0] + ",MON");
-				if (dayOfWeekNum == 3) word.set(tokens[0] + ",TUE");
-				if (dayOfWeekNum == 4) word.set(tokens[0] + ",WED");
-				if (dayOfWeekNum == 5) word.set(tokens[0] + ",THR");
-				if (dayOfWeekNum == 6) word.set(tokens[0] + ",FRI");
-				if (dayOfWeekNum == 7) word.set(tokens[0] + ",SAT");
+				LocalDate x = LocalDate.of(Integer.parseInt(date[2]), Integer.parseInt(date[0]), Integer.parseInt(date[1]));
+
+				DayOfWeek dayOfWeek = x.getDayOfWeek();
+				int dayOfWeekNum = dayOfWeek.getValue();
+				
+				if (dayOfWeekNum == 1) word.set(tokens[0] + ",MON");
+				if (dayOfWeekNum == 2) word.set(tokens[0] + ",TUE");
+				if (dayOfWeekNum == 3) word.set(tokens[0] + ",WED");
+				if (dayOfWeekNum == 4) word.set(tokens[0] + ",THR");
+				if (dayOfWeekNum == 5) word.set(tokens[0] + ",FRI");
+				if (dayOfWeekNum == 6) word.set(tokens[0] + ",SAT");
+				if (dayOfWeekNum == 7) word.set(tokens[0] + ",SUN");
 				
 				num.set(tokens[2] + "," + tokens[3]);
 				
@@ -71,7 +74,6 @@ public class UBERStudent20200941
 		Job job = new Job(conf, "UBERStudent20200941");
 		job.setJarByClass(UBERStudent20200941.class);
 		job.setMapperClass(UBERMapper.class);
-		job.setCombinerClass(UBERReducer.class);
 		job.setReducerClass(UBERReducer.class);
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(Text.class);
