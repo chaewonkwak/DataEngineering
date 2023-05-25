@@ -58,7 +58,7 @@ public class IMDBStudent20200941
 		}
 	}
 
-	public static class IMDBReducer extends Reducer<IntWritable, Text, Text, NullWritable> 
+	public static class IMDBReducer extends Reducer<IntWritable, Text, Text, DoubleWritable> 
 	{
 		private PriorityQueue<Movie> queue;
 		private Comparator<Movie> comp = new RateComparator();
@@ -100,7 +100,7 @@ public class IMDBStudent20200941
 		{
 			while(queue.size() != 0) {
 				Movie mv = (Movie)queue.remove();
-				context.write(new Text(mv.toString()), NullWritable.get());
+				context.write(new Text(mv.title), new DoubleWritable(mv.rating));
 			}
 		}
 	}
