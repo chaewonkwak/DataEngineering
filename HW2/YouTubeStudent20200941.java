@@ -72,7 +72,10 @@ public class YouTubeStudent20200941
 				count++;	
 			}
 			
-			double avg = sum / (double)count;
+			double avg = 0;
+			if (count != 0) {	
+				avg = sum / (double)count;
+			}
 			avg = Math.round(avg*10000)/10000.0;
 			insertYouTube(queue, key.toString(), avg, topK);
 			
