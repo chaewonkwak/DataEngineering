@@ -1,6 +1,6 @@
 import java.io.IOException;
 import java.util.*;
-
+import java.lang.Math;
 import org.apache.hadoop.conf.*;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
@@ -53,7 +53,7 @@ public class YouTubeStudent20200941
 		}
 	}
 
-	public static class YouTubeReducer extends Reducer<Text, DoubleWritable, Text, NullWritable> 
+	public static class YouTubeReducer extends Reducer<Text, DoubleWritable, Text, DoubleWritable> 
 	{
 		private PriorityQueue<YouTube> queue;
 		private Comparator<YouTube> comp = new RateComparator();
@@ -73,6 +73,7 @@ public class YouTubeStudent20200941
 			}
 			
 			double avg = sum / (double)count;
+			avg = Math.round(avg*10000)/10000.0;
 			insertYouTube(queue, key.toString(), avg, topK);
 			
 		}
@@ -86,7 +87,7 @@ public class YouTubeStudent20200941
 		{
 			while(queue.size() != 0) {
 				YouTube yt = (YouTube)queue.remove();
-				context.write(new Text(yt.toString()), NullWritable.get());
+				context.write(new Text(yt.category), new DoubleWritable(yt.rating));
 			}
 		}
 	}
