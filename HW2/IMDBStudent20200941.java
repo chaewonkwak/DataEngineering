@@ -84,7 +84,7 @@ public class IMDBStudent20200941
 			}
 			if (title != "") {
 				double avg = sum / (double)count;
-				avg = Math.round(avg)/10.0; // 소수점 1자리만
+				avg = Math.round(avg*10)/10.0; // 소수점 1자리만
 				insertMovie(queue, title, avg, topK);
 			//	context.write(key, rslt);
 			}
