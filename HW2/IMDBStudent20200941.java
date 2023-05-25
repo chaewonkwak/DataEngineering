@@ -26,12 +26,6 @@ public class IMDBStudent20200941
 	{
 		Movie head = (Movie)q.peek();
 		if (q.size() < topK || head.rating < r) {
-			if (q.size() >= topK){
-			System.out.println("------------compare-----------");
-			System.out.println("head: " + head.rating);
-			System.out.println("new:  " + r);
-			System.out.println();
-			}
 			Movie mv = new Movie(title, r);
 			q.add(mv);
 			if(q.size() > topK) q.remove();
