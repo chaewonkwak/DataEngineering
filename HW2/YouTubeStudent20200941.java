@@ -76,7 +76,6 @@ public class YouTubeStudent20200941
 			if (count != 0) {	
 				avg = sum / (double)count;
 			}
-			avg = Math.round(avg*10000)/10000.0;
 			insertYouTube(queue, key.toString(), avg, topK);
 			
 		}
@@ -90,7 +89,9 @@ public class YouTubeStudent20200941
 		{
 			while(queue.size() != 0) {
 				YouTube yt = (YouTube)queue.remove();
-				context.write(new Text(yt.category), new DoubleWritable(yt.rating));
+				
+				double tmp = Math.round(yt.rating*10000)/10000.0;
+				context.write(new Text(yt.category), new DoubleWritable(tmp));
 			}
 		}
 	}

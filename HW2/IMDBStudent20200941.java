@@ -87,8 +87,6 @@ public class IMDBStudent20200941
 				if (count != 0) {
 					avg = sum / (double)count;
 				}
-
-				avg = Math.round(avg*10)/10.0; // 소수점 1자리만
 				insertMovie(queue, title, avg, topK);
 			//	context.write(key, rslt);
 				
@@ -105,7 +103,8 @@ public class IMDBStudent20200941
 		{
 			while(queue.size() != 0) {
 				Movie mv = (Movie)queue.remove();
-				context.write(new Text(mv.title), new DoubleWritable(mv.rating));
+				double tmp = Math.round(mv.rating * 10)/10.0;
+				context.write(new Text(mv.title), new DoubleWritable(tmp));
 			}
 		}
 	}
