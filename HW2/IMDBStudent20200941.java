@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.*;
+import java.lang.Math;
 
 import org.apache.hadoop.conf.*;
 import org.apache.hadoop.fs.FileSystem;
@@ -83,6 +84,7 @@ public class IMDBStudent20200941
 			}
 			if (title != "") {
 				double avg = sum / (double)count;
+				avg = Math.round(avg)/10.0; // 소수점 1자리만
 				insertMovie(queue, title, avg, topK);
 			//	context.write(key, rslt);
 			}
