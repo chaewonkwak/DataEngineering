@@ -10,8 +10,6 @@ import org.apache.hadoop.mapreduce.lib.input.*;
 import org.apache.hadoop.mapreduce.lib.output.*;
 import org.apache.hadoop.util.GenericOptionsParser;
 
-import HW2.YouTube;
-
 public class YouTubeStudent20200941 
 {
 	public static class RateComparator implements Comparator<YouTube> 
@@ -40,6 +38,7 @@ public class YouTubeStudent20200941
 		public void map(Object key, Text value, Context context) throws IOException, InterruptedException 
 		{
 			String[] tokens = value.toString().split("\\|");
+			/*
 			if (tokens.length == 7) {
 				String[] genres = tokens[3].split(" & ");
 
@@ -49,6 +48,10 @@ public class YouTubeStudent20200941
 					context.write(category, rating);
 				}		
 			}
+			*/
+			category.set(tokens[3]);
+			rating.set(Double.parseDouble(tokens[6]));
+			context.write(category, rating);
 
 		}
 	}
@@ -90,8 +93,8 @@ public class YouTubeStudent20200941
 			while(queue.size() != 0) {
 				YouTube yt = (YouTube)queue.remove();
 				
-				double tmp = Math.round(yt.rating*10000)/10000.0;
-				context.write(new Text(yt.category), new DoubleWritable(tmp));
+				// double tmp = Math.round(yt.rating*10000)/10000.0;
+				context.write(new Text(yt.category), new DoubleWritable(yt.rating));
 			}
 		}
 	}
@@ -121,3 +124,18 @@ public class YouTubeStudent20200941
 		job.waitForCompletion(true);
 	}
 }
+
+
+class YouTube {
+	public String category;
+	public double rating;
+
+	public YouTube(String _category, double _rating) {
+		this.category = _category;
+		this.rating = _rating;
+	}
+
+	public String toString() {
+		return category + " " + rating;
+	}
+}	

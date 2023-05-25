@@ -11,7 +11,6 @@ import org.apache.hadoop.mapreduce.lib.input.*;
 import org.apache.hadoop.mapreduce.lib.output.*;
 import org.apache.hadoop.util.GenericOptionsParser;
 
-import HW2.Movie;
 
 public class IMDBStudent20200941 
 {
@@ -134,3 +133,17 @@ public class IMDBStudent20200941
 		job.waitForCompletion(true);
 	}
 }
+
+class Movie {
+	public String title;
+	public double rating;
+
+	public Movie(String _title, double _rating) {
+		this.title = _title;
+		this.rating = _rating;
+	}
+
+	public String toString() {
+		return title + " " + rating;
+	}
+}	
