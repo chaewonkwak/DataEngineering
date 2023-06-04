@@ -62,7 +62,7 @@ public class UBERStudent20200941 {
             public Tuple2<Integer, Integer> call(Tuple2<Integer, Integer> value1, Tuple2<Integer, Integer> value2) {
                 int tripsSum = value1._1() + value2._1();
                 int vehiclesSum = value1._2() + value2._2();
-                return new Tuple2<>(tripsSum, vehiclesSum);
+                return new Tuple2<>(vehiclesSum, tripsSum);
             }
         });
 
