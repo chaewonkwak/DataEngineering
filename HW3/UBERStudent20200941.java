@@ -44,7 +44,8 @@ public class UBERStudent20200941 {
                 int y = Integer.parseInt(dates[2]);
                 java.time.LocalDate localDate = java.time.LocalDate.of(y, m, d);
                 java.time.DayOfWeek dayOfWeek = localDate.getDayOfWeek();
-                String day = dayOfWeek.name();
+                
+                String day = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
                 if (day.equals("THU")) day = "THR";
 
                 Tuple2<String, String> key = new Tuple2<>(region, day);
