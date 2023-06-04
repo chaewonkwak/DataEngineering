@@ -46,10 +46,10 @@ public class UBERStudent20200941 {
                 int y = Integer.parseInt(dates[2]);
                 java.time.LocalDate localDate = java.time.LocalDate.of(y, m, d);
                 java.time.DayOfWeek dayOfWeek = localDate.getDayOfWeek();
+                String[] dayNames = {"MON", "TUE", "WED", "THR", "FRI", "SAT", "SUN"};
+                int dayOfWeekValue = dayOfWeek.getValue() - 1; // 1부터 시작하는 요일 값을 0부터 시작하는 인덱스 값으로 변환
+                String day = dayNames[dayOfWeekValue];
                 
-                String day = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
-                if (day.equals("THU")) day = "THR";
-
                 Tuple2<String, String> key = new Tuple2<>(region, day);
                 Tuple2<Integer, Integer> value = new Tuple2<>(trips, vehicles);
 
@@ -62,7 +62,7 @@ public class UBERStudent20200941 {
             public Tuple2<Integer, Integer> call(Tuple2<Integer, Integer> value1, Tuple2<Integer, Integer> value2) {
                 int tripsSum = value1._1() + value2._1();
                 int vehiclesSum = value1._2() + value2._2();
-                return new Tuple2<>(vehiclesSum, tripsSum);
+                return new Tuple2<>(tripsSum, vehiclesSum);
             }
         });
 
