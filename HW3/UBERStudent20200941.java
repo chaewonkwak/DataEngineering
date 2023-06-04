@@ -55,7 +55,7 @@ public class UBERStudent20200941 {
                 }
         }
         
-        JavaPairRDD<Tuple2<String, String>, Tuple2<Integer, Integer>> ones = lines.mapToPair(pf);	//PairRDD 만들기
+        JavaPairRDD<Tuple2<String, String>, Tuple2<Integer, Integer>> ones = words.mapToPair(pf);	//PairRDD 만들기
         
         JavaPairRDD<Tuple2<String, String>, Tuple2<Integer, Integer>> counts = ones.reduceByKey((value1, value2) -> new Tuple2<>(value1._1() + value2._1(), value1._2() + value2._2()));
        
