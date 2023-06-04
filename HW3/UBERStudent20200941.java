@@ -23,12 +23,19 @@ public class UBERStudent20200941 {
             .appName("IMDBStudent20200941")
             .getOrCreate();
 
-        JavaRDD<String> lines = spark.read().textFile(args[0]).toJavaRDD(); //한줄 한줄이 large array가 된다.
+        JavaRDD<String> lines = spark.read().textFile(args[0]).javaRDD(); //한줄 한줄이 large array가 된다.
         
+        FlatMapFunction<String, String> fmf = new FlatMapFunction<String, String>() { //줄단위를 날리기 위해 FlatMapFunction 적용
+            public Iterator<String> call(String s) {
+		                return Arrays.asList(s).iterator();
+            }
+        };
+        JavaRDD<String> words = lines.flatMap(fmf); 
+      
         // 지역과 요일별로 trips와 vehicles를 계산한다: Tuple2 활용하여 key도 2개, value도 2개씩..
         PairFunction<String, Tuple2<String, String>, Tuple2<Integer, Integer>> pf = new PairFunction<String, Tuple2<String, String>, Tuple2<Integer, Integer>> {
-            public Tuple2<Tuple2<String, String>, Tuple2<Integer, Integer>> call (String lines) {
-                    String[] tokens = lines.split(",");
+            public Tuple2<Tuple2<String, String>, Tuple2<Integer, Integer>> call (String s) {
+                    String[] tokens = s.split(",");
                     String region = tokens[0];
                     String[] dates = tokens[1].split("/");
                     int trips = Integer.parseInt(tokens[3]);
