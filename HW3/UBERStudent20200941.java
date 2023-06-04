@@ -23,7 +23,7 @@ public class UBERStudent20200941 {
             .appName("IMDBStudent20200941")
             .getOrCreate();
 
-        JavaRDD<String> lines = spark.read().textFile(args[0]).javaRDD(); //한줄 한줄이 large array가 된다.
+        JavaRDD<String> lines = spark.read().textFile(args[0]).toJavaRDD(); //한줄 한줄이 large array가 된다.
         
         // 지역과 요일별로 trips와 vehicles를 계산한다: Tuple2 활용하여 key도 2개, value도 2개씩..
         PairFunction<String, Tuple2<String, String>, Tuple2<Integer, Integer>> pf = new PairFunction<String, Tuple2<String, String>, Tuple2<Integer, Integer>> {
